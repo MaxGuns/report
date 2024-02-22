@@ -1,6 +1,7 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 import time
+import getpass
 
 # Dictionary untuk menyimpan akun yang berhasil login
 akun_berhasil_login = {}
@@ -91,7 +92,7 @@ def get_input():
     for i in range(50):
         print(f"### Akun ke-{i+1} ###")
         username = input("Masukkan username TikTok Anda: ")
-        password = input("Masukkan password TikTok Anda: ")
+        password = getpass.getpass("Masukkan password TikTok Anda: ")
         target_username = input("Masukkan username target yang ingin dilaporkan: ")
         print("Pilihan alasan pelaporan:")
         print("1. Inappropriate Content")
