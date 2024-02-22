@@ -2,6 +2,9 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 import time
 
+# Dictionary untuk menyimpan akun yang berhasil login
+akun_berhasil_login = {}
+
 # Fungsi untuk melaporkan akun di TikTok
 def laporkan_akun(username, password, target_username, reason):
     # Path ke driver Selenium (misalnya, Chrome WebDriver)
@@ -33,6 +36,9 @@ def laporkan_akun(username, password, target_username, reason):
 
     # Tunggu beberapa detik untuk masuk ke akun
     time.sleep(10)
+
+    # Tambahkan akun ke daftar akun yang berhasil login
+    akun_berhasil_login[username] = password
 
     # Buka profil akun yang ingin dilaporkan
     driver.get("https://www.tiktok.com/@" + target_username)
@@ -78,7 +84,7 @@ def laporkan_akun(username, password, target_username, reason):
     # Tutup browser
     driver.quit()
 
-# Fungsi untuk meminta input dari pengguna untuk 50 akun
+# Fungsi untuk meminta input dari pengguna untuk akun yang akan dilaporkan
 def get_input():
     print("### Laporan Akun TikTok ###")
     accounts = []
@@ -111,15 +117,16 @@ def get_input():
 
     return accounts
 
-# Fungsi untuk menampilkan jumlah akun yang sudah terkumpul
-def tampilkan_jumlah_akun(accounts):
-    jumlah_akun = len(accounts)
-    print(f"Total {jumlah_akun} akun telah terkumpul.")
+# Fungsi untuk menampilkan daftar akun yang berhasil login
+def tampilkan_akun_berhasil_login():
+    print("### Daftar Akun yang Berhasil Login ###")
+    for username, password in akun_berhasil_login.items():
+        print(f"Username: {username}, Password: {password}")
 
 # Fungsi utama
 def main():
     accounts = get_input()
-    tampilkan_jumlah_akun(accounts)
+    tampilkan_akun_berhasil_login()
 
     for account in accounts:
         laporkan_akun(account["username"], account["password"], account["target_username"], account["reason"])
