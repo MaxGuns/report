@@ -108,11 +108,19 @@ def get_input():
             "target_username": target_username,
             "reason": reason
         })
+
     return accounts
 
-# Main program
+# Fungsi untuk menampilkan jumlah akun yang sudah terkumpul
+def tampilkan_jumlah_akun(accounts):
+    jumlah_akun = len(accounts)
+    print(f"Total {jumlah_akun} akun telah terkumpul.")
+
+# Fungsi utama
 def main():
     accounts = get_input()
+    tampilkan_jumlah_akun(accounts)
+
     for account in accounts:
         laporkan_akun(account["username"], account["password"], account["target_username"], account["reason"])
 
