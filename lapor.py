@@ -1,6 +1,5 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By
-from selenium.webdriver.common.keys import Keys
 import time
 
 # Fungsi untuk melaporkan akun di TikTok
@@ -69,6 +68,13 @@ def laporkan_akun(username, password, target_username, reason):
     # Tunggu beberapa detik untuk proses pelaporan selesai
     time.sleep(5)
 
+    # Cek apakah laporan berhasil atau tidak
+    success_message = "Your report has been submitted"
+    if success_message in driver.page_source:
+        print(f"Akun {username} berhasil melaporkan akun {target_username}!")
+    else:
+        print(f"Akun {username} gagal melaporkan akun {target_username}.")
+
     # Tutup browser
     driver.quit()
 
@@ -109,7 +115,6 @@ def main():
     accounts = get_input()
     for account in accounts:
         laporkan_akun(account["username"], account["password"], account["target_username"], account["reason"])
-        print(f"Akun {account['username']} berhasil dilaporkan untuk akun {account['target_username']}!")
 
 # Panggil fungsi main()
 if __name__ == "__main__":
