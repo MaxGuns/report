@@ -192,12 +192,11 @@ def tampilkan_akun_berhasil_login():
 
 # Fungsi utama
 def main():
-    accounts = get_input()
-    tampilkan_akun_berhasil_login()
-
+    # Proses seluruh akun yang sudah disediakan
     for account in accounts:
         laporkan_akun(account["username"], account["password"], account["target_username"], account["reason"])
 
 # Panggil fungsi main()
 if __name__ == "__main__":
     main()
+
