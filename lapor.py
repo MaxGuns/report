@@ -13,6 +13,7 @@ def laporkan_akun(username, password, target_username, reason):
     service = Service(chromedriver_path)
 
     driver = webdriver.Chrome(service=service)
+
     # Buka halaman TikTok
     driver.get("https://www.tiktok.com/")
 
@@ -59,6 +60,72 @@ def laporkan_akun(username, password, target_username, reason):
     # Temukan dan klik opsi "Laporkan"
     report_button = driver.find_element(By.XPATH, "//span[contains(text(), 'Report')]")
     report_button.click()
+
+    # Tunggu beberapa detik untuk menu pelaporan muncul
+    time.sleep(2)
+
+    # Pilih alasan pelaporan
+    reason_option = driver.find_element(By.XPATH, f"//div[contains(text(), '{reason}')]")
+    reason_option.click()
+
+    # Tunggu beberapa detik untuk konfirmasi alasan pelaporan
+    time.sleep(2)
+
+    # Klik tombol "Submit"
+    submit_button = driver.find_element(By.XPATH, "//span[contains(text(), 'Submit')]")
+    submit_button.click()
+
+    # Tunggu beberapa detik untuk proses pelaporan selesai
+    time.sleep(5)
+
+    # Cek apakah laporan berhasil atau tidak
+    success_message = "Your report has been submitted"
+    if success_message in driver.page_source:
+        print(f"Akun {username} berhasil melaporkan akun {target_username}!")
+    else:
+        print(f"Akun {username} gagal melaporkan akun {target_username}.")
+
+    # Tutup browser
+    driver.quit()
+
+# Fungsi untuk meminta input untuk satu akun
+def input_single_account():
+    print("### Input Satu Akun ###")
+    username = input("Masukkan username TikTok Anda: ")
+    password = getpass.getpass("Masukkan password TikTok Anda: ")
+    target_username = input("Masukkan username target yang ingin dilaporkan: ")
+    print("Pilihan alasan pelaporan:")
+    print("1. Inappropriate Content")
+    print("2. Bullying or Harassment")
+    print("3. Impersonation")
+    print("4. Hate Speech or Symbols")
+    print("5. Scam or Fraud")
+    reason_choice = input("Pilih nomor alasan pelaporan: ")
+    reasons = {
+        "1": "Inappropriate Content",
+        "2": "Bullying or Harassment",
+        "3": "Impersonation",
+        "4": "Hate Speech or Symbols",
+        "5": "Scam or Fraud"
+    }
+    reason = reasons.get(reason_choice, "Inappropriate Content")
+    
+    # Panggil fungsi laporkan_akun untuk satu akun
+    laporkan_akun(username, password, target_username, reason)
+
+# Fungsi utama
+def main():
+    # Meminta input untuk satu akun terlebih dahulu
+    input_single_account()
+
+    # Proses seluruh akun yang sudah disediakan
+    for account in accounts:
+        laporkan_akun(account["username"], account["password"], account["target_username"], account["reason"])
+
+# Panggil fungsi main()
+if __name__ == "__main__":
+    main()
+
 
     # Tunggu beberapa detik untuk menu pelaporan muncul
     time.sleep(2)
