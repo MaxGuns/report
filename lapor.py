@@ -1,5 +1,5 @@
 from selenium import webdriver
-from selenium.webdriver.common.by import By
+from selenium.webdriver.chrome.service import Service
 import time
 import getpass
 
@@ -9,8 +9,10 @@ akun_berhasil_login = {}
 # Fungsi untuk melaporkan akun di TikTok
 def laporkan_akun(username, password, target_username, reason):
     # Path ke driver Selenium (misalnya, Chrome WebDriver)
-    driver = webdriver.Chrome(executable_path='/path/to/chromedriver')
+    chromedriver_path = '/path/to/chromedriver'  # Sesuaikan path dengan lokasi chromedriver Anda
+    service = Service(chromedriver_path)
 
+    driver = webdriver.Chrome(service=service)
     # Buka halaman TikTok
     driver.get("https://www.tiktok.com/")
 
