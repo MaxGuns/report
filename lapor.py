@@ -9,7 +9,7 @@ akun_berhasil_login = {}
 # Fungsi untuk melaporkan akun di TikTok
 def laporkan_akun(username, password, target_username, reason):
     # Path ke driver Selenium (misalnya, Chrome WebDriver)
-    driver = webdriver.Chrome(executable_path='/path/to/chromedriver')
+    driver = webdriver.Chrome("chromedriver")
 
     # Buka halaman TikTok
     driver.get("https://www.tiktok.com/")
